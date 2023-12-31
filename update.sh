@@ -30,7 +30,7 @@ update_tmux() {
 update_emacs() {
     echo "update emacs"
     cp ~/.emacs ./emacs/.emacs
-    cp -R ~/.emacs.d ./emacs/.emacs.d
+    cp -R ~/.emacs.d ./emacs/
 }
 
 # update all
@@ -48,7 +48,7 @@ if [ $# -eq 0 ]; then
     exit 1
 fi
 
-while getopts "avnte:h" opt; do
+while getopts "avnteh" opt; do
     case $opt in
         a)
             update_all ;;

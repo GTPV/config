@@ -6,41 +6,67 @@
 # -n: install neovim
 # -t: install tmux
 # -e: install emacs
+# -y: skip confirmation
+
+skip_confirmation=false
+
+# custom confirmation
+confirm() {
+    if $skip_confirmation; then
+        true
+        return
+    fi
+    read -r -p "$1 - Are you sure? [y/N] " response
+    case "$response" in
+        [yY][eE][sS]|[yY])
+            true ;;
+        *)
+            false ;;
+    esac
+}
 
 
 # install vim
 install_vim() {
-    echo "install vim"
-    mv ~/.vimrc ~/.vimrc.bak
-    cp ./vim/.vimrc ~/.vimrc
+    if confirm "You are about to install vim config"; then
+        echo "installing vim config"
+        mv ~/.vimrc ~/.vimrc.bak
+        cp ./vim/.vimrc ~/.vimrc
+    fi
 }
 
 # install neovim
 install_neovim() {
-    echo "install neovim"
-    mv ~/.config/nvim ~/.config/nvim.bak
-    cp -R ./neovim/nvim ~/.config/
+    if confirm "Your are about to install neovim config"; then
+        echo "installing neovim config"
+        mv ~/.config/nvim ~/.config/nvim.bak
+        cp -R ./neovim/nvim ~/.config/
+    fi
 }
 
 # install tmux
 install_tmux() {
-    echo "install tmux"
-    mv ~/.tmux.conf ~/.tmux.conf.bak
-    cp ./tmux/.tmux.conf ~/.tmux.conf
+    if confirm "Your are about to install tmux config"; then
+        echo "installing tmux config"
+        mv ~/.tmux.conf ~/.tmux.conf.bak
+        cp ./tmux/.tmux.conf ~/.tmux.conf
+    fi
 }
 
 # install emacs
 install_emacs() {
-    echo "install emacs"
-    mv ~/.emacs ~/.emacs.bak
-    mv ~/.emacs.d ~/.emacs.d.bak
-    cp ./emacs/.emacs ~/.emacs
-    cp -R ./emacs/.emacs.d ~/
+    if confirm "Your are about to install emacs config"; then
+        echo "installing emacs config"
+        mv ~/.emacs ~/.emacs.bak
+        mv ~/.emacs.d ~/.emacs.d.bak
+        cp ./emacs/.emacs ~/.emacs
+        cp -R ./emacs/.emacs.d ~/
+    fi
 }
 
 # install all
 install_all() {
-    echo "install all"
+    echo "install all configs"
     install_vim;
     install_neovim;
     install_tmux;
@@ -53,7 +79,16 @@ if [ $# -eq 0 ]; then
     exit 1
 fi
 
-while getopts "avnteh" opt; do
+while getopts "avnteyh" opt; do
+    case $opt in
+        y)
+            skip_confirmation=true ;;
+    esac
+done
+
+OPTIND=1
+
+while getopts "avnteyh" opt; do
     case $opt in
         a)
             install_all ;;

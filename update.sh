@@ -6,31 +6,57 @@
 # -n: update neovim
 # -t: update tmux
 # -e: update emacs
+# -y: skip confirmation
 
+skip_confirmation=false
+
+# custom confirmation
+confirm() {
+    if $skip_confirmation; then
+        true
+        return
+    fi
+
+    read -r -p "$1 - Are you sure? [y/N] " response
+    case "$response" in
+        [yY][eE][sS]|[yY])
+            true ;;
+        *)
+            false ;;
+    esac
+}
 
 # update vim
 update_vim() {
-    echo "update vim"
-	cp ~/.vimrc ./vim/.vimrc
+    if confirm "You are about to update vim config"; then
+        echo "updating vim config"
+        cp ~/.vimrc ./vim/.vimrc
+    fi
 }
 
 # update neovim
 update_neovim() {
-    echo "update neovim"
-	cp -R ~/.config/nvim ./neovim/
+    if confirm "You are about to update neovim config"; then
+        echo "updating neovim config"
+        cp -R ~/.config/nvim ./neovim/
+    fi
 }
 
 # update tmux
 update_tmux() {
-    echo "update tmux"
-    cp ~/.tmux.conf ./tmux/.tmux.conf
+    if confirm "You are about to update tmux config"; then
+        echo "updating tmux config"
+        cp ~/.tmux.conf ./tmux/.tmux.conf
+    fi
 }
 
 # update emacs
 update_emacs() {
-    echo "update emacs"
-    cp ~/.emacs ./emacs/.emacs
-    cp -R ~/.emacs.d ./emacs/
+    if confirm "You are about to update emacs config"; then
+        echo "updating emacs config"
+        cp ~/.emacs ./emacs/.emacs
+        cp -R ~/.emacs.d ./emacs/
+    fi
 }
 
 # update all
@@ -48,7 +74,16 @@ if [ $# -eq 0 ]; then
     exit 1
 fi
 
-while getopts "avnteh" opt; do
+while getopts "avnteyh" opt; do
+    case $opt in
+        y)
+            skip_confirmation=true ;;
+    esac
+done
+
+OPTIND=1
+
+while getopts "avnteyh" opt; do
     case $opt in
         a)
             update_all ;;

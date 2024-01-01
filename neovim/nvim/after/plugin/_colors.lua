@@ -22,9 +22,10 @@ require('rose-pine').setup({
 
 function ChangeColor(color, bg)
 	color = color or "base16-google-light"
-	-- bg = bg or "light"
+	bg = bg or "light"
 	vim.cmd.colorscheme(color)
+	vim.cmd.set("background=" .. bg)
 end
 
-ChangeColor("base16-grayscale-light")
+ChangeColor("default")
 -- print("Colors loaded")

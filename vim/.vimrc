@@ -16,6 +16,7 @@ call plug#end()
 syntax on
 
 let g:lsp_document_highlight_enabled = 0
+let g:lsp_settings_filetype_python = ['pyright-langserver']
 
 " ========== Settings from set.lua ==========
 
@@ -26,9 +27,9 @@ let g:airline_theme='base16'
 set nu
 set mouse=a
 
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=8
+set softtabstop=8
+set shiftwidth=8
 set expandtab
 set smartindent
 

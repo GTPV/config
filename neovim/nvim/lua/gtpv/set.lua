@@ -8,9 +8,9 @@ vim.opt.incsearch = true
 vim.opt.nu = true -- Show line numbers
 
 vim.opt.autoindent = true -- Auto indent
-vim.opt.ts = 4 -- Tab size
-vim.opt.sts = 4 -- Soft tab stop
-vim.opt.sw = 4 -- Shift width
+vim.opt.ts = 8 -- Tab size
+vim.opt.sts = 8 -- Soft tab stop
+vim.opt.sw = 8 -- Shift width
 vim.opt.cindent = true -- C indenting
 vim.opt.smarttab = true -- Smart tabbing
 vim.opt.smartindent = true -- Smart indenting

@@ -27,7 +27,7 @@
 (global-display-line-numbers-mode)
 
 ;; Tab settings
-(setq-default tab-width 4)
+(setq-default tab-width 8)
 (setq-default indent-tabs-mode nil)
 (setq indent-line-function 'insert-tab)
 

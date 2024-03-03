@@ -32,6 +32,11 @@ install_vim() {
         echo "installing vim config"
         mv ~/.vimrc ~/.vimrc.bak
         cp ./vim/.vimrc ~/.vimrc
+	if confirm "Do you want to install vim-plug?"; then
+	    echo "installing vim-plug"
+	    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	fi
     fi
 }
 
@@ -41,6 +46,11 @@ install_neovim() {
         echo "installing neovim config"
         mv ~/.config/nvim ~/.config/nvim.bak
         cp -R ./neovim/nvim ~/.config/
+	if confirm "Do you want to install packer.nvim?"; then
+		echo "installing packer.nvim"
+		git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+		 ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+	fi
     fi
 }
 

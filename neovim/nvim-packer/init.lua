@@ -3,7 +3,4 @@ if vim.g.vscode then
 else
 	-- ordinary Neovim
 	require("gtpv")
-	vim.cmd [[
-		au BufRead,BufNewfile *.k-,*.k-- set ft=k-
-	]]
 end

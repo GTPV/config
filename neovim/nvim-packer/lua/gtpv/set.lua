@@ -5,8 +5,6 @@ vim.opt.termguicolors = true
 vim.opt.hlsearch = false -- Highlight all matches on previous search pattern
 vim.opt.incsearch = true
 
-vim.opt.foldmethod = "indent" -- Fold based on indent level
-
 vim.opt.nu = true -- Show line numbers
 
 vim.opt.autoindent = true -- Auto indent
@@ -33,12 +31,3 @@ vim.opt.scrolloff = 7
 
 vim.opt.updatetime = 50
 vim.opt.timeoutlen = 2000
-
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "ocaml",
-	callback = function()
-		vim.opt_local.tabstop = 2
-		vim.opt_local.shiftwidth = 2
-		vim.opt_local.softtabstop = 2
-	end,
-})

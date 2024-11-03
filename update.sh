@@ -59,6 +59,22 @@ update_emacs() {
     fi
 }
 
+# update hyprland
+update_hyprland() {
+	if confirm "You are about to update hyprland config"; then
+		echo "updating hyprland config"
+		cp ~/.config/hypr ./hypr
+	fi
+}
+
+# update foot
+update_foot() {
+	if confirm "You are about to update foot config"; then
+		echo "updating foot config"
+		cp ~/.config/foot ./foot
+	fi
+}
+
 # update all
 update_all() {
     echo "update all"
@@ -66,15 +82,29 @@ update_all() {
     update_neovim;
     update_tmux;
     update_emacs;
+    update_hyprland;
+    update_foot;
+}
+
+# print help
+print_help() {
+	echo "Usage: update.sh -<package>";
+	echo "    [-a]: all";
+	echo "    [-v]: Vim";
+	echo "    [-n]: Neovim";
+	echo "    [-t]: Tmux";
+	echo "    [-e]: Emacs";
+	echo "    [-l]: hyprLand";
+	echo "    [-f]: Foot";
 }
 
 
 if [ $# -eq 0 ]; then
-    echo "Usage: update.sh [-a] [-v] [-n] [-t] [-e]"
+	print_help
     exit 1
 fi
 
-while getopts "avnteyh" opt; do
+while getopts "avntelfyh" opt; do
     case $opt in
         y)
             skip_confirmation=true ;;
@@ -83,7 +113,7 @@ done
 
 OPTIND=1
 
-while getopts "avnteyh" opt; do
+while getopts "avntelfyh" opt; do
     case $opt in
         a)
             update_all ;;
@@ -95,8 +125,12 @@ while getopts "avnteyh" opt; do
             update_tmux ;;
         e)
             update_emacs ;;
+	l)
+		update_hyprland ;;
+	f)
+		update_foot ;;
         h)
-            echo "Usage: update.sh [-a] [-v] [-n] [-t] [-e]"
+		print_help
             exit 1 ;;
         \?)
             echo "Invalid option: -$OPTARG" >&2 ;;

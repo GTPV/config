@@ -27,5 +27,5 @@ function ChangeColor(color, bg)
 	vim.cmd.set("background=" .. bg)
 end
 
-ChangeColor("oxocarbon")
+ChangeColor("github_light")
 -- print("Colors loaded")

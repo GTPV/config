@@ -69,7 +69,8 @@ local plugins = {
 		"vhyrro/luarocks.nvim",
 		priority = 1000,
 		config = true,
-	}
+	},
+	{ 'projekt0n/github-nvim-theme', name = 'github-theme' }
 }
 
 local opts = {

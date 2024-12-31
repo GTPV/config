@@ -8,6 +8,7 @@
 # -e: install Emacs
 # -l: install hyprLand
 # -f: install Foot
+# -s: install aeroSpace
 # -y: say Yes - skip confirmation
 
 skip_confirmation=false
@@ -94,6 +95,15 @@ install_foot() {
 	fi
 }
 
+# install aerospace
+install_aerospace() {
+	if confirm "You are about to install aerospace config"; then
+		echo "installing aerospace config"
+		mv ~/.config/aerospace ~/.config/aerospace.bak
+		cp -R ./aerospace ~/.config/aerospace
+	fi
+}
+
 # install all
 install_all() {
 	echo "install all configs"
@@ -103,6 +113,7 @@ install_all() {
 	install_emacs;
 	install_hyprland;
 	install_foot;
+	install_aerospace;
 }
 
 # print help message
@@ -115,6 +126,7 @@ print_help() {
 	echo "    [-e]: Emacs";
 	echo "    [-l]: hyprLand";
 	echo "    [-f]: Foot";
+	echo "    [-s]: aeroSpace";
 }
 
 
@@ -123,7 +135,7 @@ if [ $# -eq 0 ]; then
 	exit 1
 fi
 
-while getopts "avntelfyh" opt; do
+while getopts "avntelfsyh" opt; do
 	case $opt in
 		y)
 			skip_confirmation=true ;;
@@ -132,7 +144,7 @@ done
 
 OPTIND=1
 
-while getopts "avntelfyh" opt; do
+while getopts "avntelfsyh" opt; do
 	case $opt in
 		a)
 			install_all ;;
@@ -148,6 +160,8 @@ while getopts "avntelfyh" opt; do
 			install_hyprland ;;
 		f)
 			install_foot ;;
+		s)
+			install_aerospace ;;
 		h)
 			print_help
 			exit 1 ;;

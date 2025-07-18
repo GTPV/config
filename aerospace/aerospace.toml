@@ -77,6 +77,8 @@ alt-shift-b = 'move-node-to-workspace B' # workspace for browser
 alt-shift-period = 'move-node-to-workspace $>' # workspace for terminal
 alt-shift-comma = 'move-node-to-workspace <'
 
+alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+
 alt-shift-c = 'reload-config'
 
 alt-r = 'mode resize'
@@ -89,3 +91,7 @@ l = 'resize width +50'
 enter = 'mode main'
 esc = 'mode main'
 alt-r = 'mode main'
+
+[workspace-to-monitor-force-assignment]
+8 = 'secondary'
+9 = 'secondary'

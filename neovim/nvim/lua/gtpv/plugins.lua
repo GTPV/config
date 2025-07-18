@@ -70,7 +70,41 @@ local plugins = {
 		priority = 1000,
 		config = true,
 	},
-	{ 'projekt0n/github-nvim-theme', name = 'github-theme' }
+	{ 'projekt0n/github-nvim-theme', name = 'github-theme' },
+	{
+		"robitx/gp.nvim",
+		config = function()
+			local conf = {
+				-- For customization, refer to Install > Configuration in the Documentation/Readme
+				openai_api_key = os.getenv("OPENAI_API_KEY"),
+
+				providers = {
+					openai = {
+						disable = true,
+						endpoint = "https://api.openai.com/v1/chat/completions",
+					},
+					copilot = {
+						disable = true,
+						endpoint = "https://api.githubcopilot.com/chat/completions",
+						secret = {
+							"zsh",
+							"-c",
+							"cat ~/.config/github-copilot/hosts.json | sed -e 's/.*oauth_token...//;s/\",*//'",
+						},
+					},
+					ollama = {
+						disable = false,
+						endpoint = "http://localhost:11434/v1/chat/completions",
+						secret = "dummy_secret",
+					},
+				}
+			}
+			require("gp").setup(conf)
+
+			-- Setup shortcuts here (see Usage > Shortcuts in the Documentation/Readme)
+			-- Saved on the after/plugins/_gp.lua file
+		end,
+	}
 }
 
 local opts = {
